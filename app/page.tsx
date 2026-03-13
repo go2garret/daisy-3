@@ -1270,10 +1270,10 @@ export default function App() {
       <FontLoader />
       <Nav />
       <Hero />
-      <MarqueeBanner />
       <FilmsSection />
       <AboutSection />
       <CTASection />
+      <MarqueeBanner />
       <Footer />
 
       <VideoModal />
