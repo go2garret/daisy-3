@@ -20,7 +20,7 @@ export default function ContactModal() {
         pointerEvents: isOpen ? "all" : "none",
         transition: "opacity 0.3s ease",
       }}
-      className="items-start lg:items-center"
+      className="items-start! lg:items-center!"
     >
       <div
         onClick={(e) => e.stopPropagation()}
