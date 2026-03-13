@@ -85,7 +85,7 @@ h2 {
 
 .fade-in {
     /* Apply the animation to the element */
-    animation: fadeIn ease 5s;
+    animation: fadeIn ease 2.8s;
     /* Ensure the final state of the animation (opacity: 1) persists after it finishes */
     animation-fill-mode: forwards;
 }

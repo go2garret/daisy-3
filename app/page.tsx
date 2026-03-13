@@ -540,20 +540,6 @@ const FILMS = [
     trailer: "https://www.youtube.com/watch?v=RbQlfaO1rWM"
   },
   {
-    title: "29th and Gay",
-    year: "2005",
-    rating: "NR",
-    runtime: "1h 24m",
-    genre: "Comedy",
-    director: "Carrie Preston",
-    stars: ["James Vasquez", "Nicole Marcks", "David McBean"],
-    desc: "Following a year in the life of James Sanchez — a guy rapidly approaching 30 without a six-pack, a full head of hair, or a boyfriend.",
-    image: "29th-and-gay-screen.webp",
-    movie: "29th-and-gay-trailer-xxs.mp4",
-    accentColor: "var(--cyan-rgb)",
-    trailer: "https://www.youtube.com/watch?v=ZD2GtUbhYSY"
-  },
-  {
     title: "Ready? OK!",
     year: "2008",
     rating: "PG-13",
@@ -566,6 +552,20 @@ const FILMS = [
     movie: "ready-ok-trailer-xxs.mp4",
     accentColor: "var(--gold-rgb)",
     trailer: "https://www.youtube.com/watch?v=lEzM2PpAPJo"
+  },
+  {
+    title: "29th and Gay",
+    year: "2005",
+    rating: "NR",
+    runtime: "1h 24m",
+    genre: "Comedy",
+    director: "Carrie Preston",
+    stars: ["James Vasquez", "Nicole Marcks", "David McBean"],
+    desc: "Following a year in the life of James Sanchez — a guy rapidly approaching 30 without a six-pack, a full head of hair, or a boyfriend.",
+    image: "29th-and-gay-screen.webp",
+    movie: "29th-and-gay-trailer-xxs.mp4",
+    accentColor: "var(--cyan-rgb)",
+    trailer: "https://www.youtube.com/watch?v=ZD2GtUbhYSY"
   },
 ];
 

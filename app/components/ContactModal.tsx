@@ -6,8 +6,21 @@ export default function ContactModal() {
 
   return (
     <div
-      className={`modal-overlay ${isOpen ? "open" : ""}`}
       onClick={closeModal}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 9999,
+        background: "rgba(0,0,0,0.85)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflowY: "auto",
+        padding: "2rem 1rem",
+        opacity: isOpen ? 1 : 0,
+        pointerEvents: isOpen ? "all" : "none",
+        transition: "opacity 0.3s ease",
+      }}
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -142,15 +155,14 @@ export default function ContactModal() {
             border:none;
             border-radius: 2rem;
             padding: 20px 16px;
-            font-size:11px;
-            letter-spacing: .1em;
-            text-transform:uppercase;
+            font-size:16px;
+            letter-spacing: 0.02em;
             color:#080808;
             cursor:pointer;
             position:relative;
             overflow:hidden;
             margin-top:8px;
-            font-weight: 900;
+            font-weight: 700;
             font-family: var(--font-title);
           }
 
@@ -171,9 +183,9 @@ export default function ContactModal() {
             position:absolute;
             top:20px;
             right:20px;
+            min-width:36px;
             width:36px;
             height:36px;
-            border:1px solid rgba(200,169,110,0.18);
             background:none;
             color:var(--light-gray);
             font-size:18px;
@@ -181,13 +193,15 @@ export default function ContactModal() {
             display:flex;
             align-items:center;
             justify-content:center;
-            transition:.3s;
+            transition: background .3s ease;
             z-index:10;
+            border-radius: 100%;
+            padding: 0;
           }
 
           .contact-close:hover{
-            border-color:var(--gold);
-            color:var(--gold);
+            color:var(--off-white);
+            background: rgba(var(--gold-rgb), 0.15);
           }
         `}</style>
 
@@ -222,8 +236,8 @@ export default function ContactModal() {
                 marginBottom: 24,
               }}
             >
-              Daisy 3 <br />
-              <span style={{ color: "var(--off-white)" }}>Pictures</span>
+              Daisy 3
+              <span style={{ color: "var(--off-white)" }}> Pictures</span>
             </div>
 
             <p
@@ -232,8 +246,9 @@ export default function ContactModal() {
                 color: "var(--muted)",
                 lineHeight: 1.8,
                 letterSpacing: "0.01em",
-                maxWidth: 260,
+                width: "100%",
               }}
+              className="max-w-[400px] lg:max-w-[260px]"
             >
               Independent film production studio creating narrative films,
               documentaries, and cinematic storytelling from San Diego,
@@ -315,7 +330,7 @@ export default function ContactModal() {
             <label className="field-label">Your Message</label>
           </div>
 
-          <button className="contact-submit">
+          <button className="contact-submit hover-shadow-lg shadow-gold">
             Send Message
           </button>
 
