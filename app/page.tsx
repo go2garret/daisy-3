@@ -82,6 +82,13 @@ const FontLoader = () => (
       overflow: hidden;
       transition: transform 0.45s cubic-bezier(.16,1,.3,1), box-shadow 0.45s ease, border-color 0.3s ease;
       cursor: pointer;
+      width: 100%;
+    }
+
+    @media (min-width: 1024px ) {
+      .film-card {
+        width: calc(50% - 8px);
+      }
     }
 
     .film-card:hover {
@@ -307,8 +314,6 @@ function Nav() {
               letterSpacing: "0.01em",
               transition: "color 0.2s",
             }}
-            onMouseEnter={(e) => (e.target.style.color = "white")}
-            onMouseLeave={(e) => (e.target.style.color = "rgba(255,255,255,0.7)")}
           >
             {item}
           </a>
@@ -326,8 +331,6 @@ function Nav() {
             letterSpacing: "0.04em",
             transition: "opacity 0.2s, transform 0.2s",
           }}
-          onMouseEnter={(e) => { e.target.style.opacity = "0.85"; e.target.style.transform = "scale(1.03)"; }}
-          onMouseLeave={(e) => { e.target.style.opacity = "1"; e.target.style.transform = "scale(1)"; }}
         >
           Watch Now
         </a>
@@ -439,8 +442,6 @@ function Hero() {
               transition: "transform 0.25s, box-shadow 0.25s",
               display: "inline-block",
             }}
-            onMouseEnter={(e) => { e.target.style.transform = "scale(1.04)"; e.target.style.boxShadow = "0 0 40px rgba(255,255,255,0.15)"; }}
-            onMouseLeave={(e) => { e.target.style.transform = "scale(1)"; e.target.style.boxShadow = "none"; }}
           >
             Explore Our Films
           </a>
@@ -558,48 +559,30 @@ function FilmCard({ film, index }) {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <div
-      className={`film-card reveal`}
-      style={{
-        position: "relative",
-        minWidth: 500,
-        width: "100%",
-        maxWidth: 900,
-        height: 400,
-        borderRadius: 10,
-        overflow: "hidden",
-        cursor: "pointer",
-        flexShrink: 0,
-        transitionDelay: `${index * 0.12}s`,
-      }}
-    >
-      {/* Background media */}
 
-      <img
-        src={imgError && film.fallbackImage ? film.fallbackImage : film.image}
-        alt={film.title}
-        loading="lazy"
-        onError={() => setImgError(true)}
+    <ScrollReveal direction="bottom"
+        className="film-card sm:min-w-[400px]"
         style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
+          position: "relative",
+          height: 400,
+          borderRadius: 10,
+          overflow: "hidden",
+          cursor: "pointer",
+        }}>
+      <div
+        style={{
+          position: "relative",
           width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "top",
-          zIndex: 1,
+          height: "100%"
         }}
-      />
+      >
+        {/* Background media */}
 
-      {film.movie && !imgError ? (
-        <video
-          src={film.movie}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+        <img
+          src={imgError && film.fallbackImage ? film.fallbackImage : film.image}
+          alt={film.title}
+          loading="lazy"
+          onError={() => setImgError(true)}
           style={{
             position: "absolute",
             top: 0,
@@ -608,139 +591,163 @@ function FilmCard({ film, index }) {
             height: "100%",
             objectFit: "cover",
             objectPosition: "top",
-            zIndex: 2,
+            zIndex: 1,
           }}
         />
-      ) : ""
-      }
-      {/* Accent gradient overlay — solid on left, fades right */}
-      <div
-        style={{
+
+        {film.movie && !imgError ? (
+          <video
+            src={film.movie}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top",
+              zIndex: 2,
+            }}
+          />
+        ) : ""
+        }
+        {/* Accent gradient overlay — solid on left, fades right */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `linear-gradient(
+              30deg,
+              rgba(${film.accentColor},1) 0%,
+              rgba(${film.accentColor},1) 15%,
+              rgba(${film.accentColor},0.4) 30%,
+              rgba(${film.accentColor},0.2) 45%,
+              transparent 85%
+            )`,
+            zIndex: 3,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `linear-gradient(
+              to right,
+              rgba(${film.accentColor},1) 0%,
+              rgba(${film.accentColor},0.5) 5%,
+              rgba(${film.accentColor},0.4) 20%,
+              rgba(${film.accentColor},0.2) 30%,
+              transparent 85%
+            )`,
+            zIndex: 3,
+          }}
+        />
+
+        {/* Dark bottom scrim for text legibility */}
+        <div style={{
           position: "absolute",
           inset: 0,
-          background: `linear-gradient(
-            30deg,
-            rgba(${film.accentColor},1) 0%,
-            rgba(${film.accentColor},1) 15%,
-            rgba(${film.accentColor},0.4) 30%,
-            rgba(${film.accentColor},0.2) 45%,
-            transparent 85%
-          )`,
+          background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%)",
           zIndex: 3,
-        }}
-      />
+        }} />
 
-      <div
-        style={{
+        {/* Content */}
+        <div style={{
           position: "absolute",
           inset: 0,
-          background: `linear-gradient(
-            to right,
-            rgba(${film.accentColor},1) 0%,
-            rgba(${film.accentColor},0.5) 5%,
-            rgba(${film.accentColor},0.4) 20%,
-            rgba(${film.accentColor},0.2) 30%,
-            transparent 85%
-          )`,
-          zIndex: 3,
+          zIndex: 4,
+          padding: "20px 24px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
         }}
-      />
-
-      {/* Dark bottom scrim for text legibility */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%)",
-        zIndex: 3,
-      }} />
-
-      {/* Content */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 4,
-        padding: "20px 24px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        maxWidth: "55%",
-      }}>
-        {/* Top label */}
-        {/* <div style={{
-          fontFamily: "'Outfit', sans-serif",
-          fontSize: 11,
-          fontWeight: 700,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "rgba(255,255,255,0.85)",
-        }}>
-          For fans of {film.genre.split(",")[0].trim()}
-        </div> */}
-        <div></div>
-
-        {/* Title */}
-        <div>
-          <h3 style={{
+        className="w-full md:max-w-[55%]">
+          {/* Top label */}
+          {/* <div style={{
             fontFamily: "'Outfit', sans-serif",
-            fontWeight: 800,
-            fontSize: 32,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.05,
-            color: "white",
-            margin: "0 0 10px",
-            textShadow: "0 2px 12px rgba(0,0,0,0.4)",
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.85)",
           }}>
-            {film.title}
-          </h3>
+            For fans of {film.genre.split(",")[0].trim()}
+          </div> */}
+          <div></div>
 
-          {/* Meta row */}
-          <div style={{
-            fontSize: 14,
-            color: "rgba(255,255,255,0.75)",
-            display: "flex",
-            gap: 6,
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}>
-            <span style={{
-              border: "1px solid rgba(255,255,255,0.6)",
-              padding: "1px 5px",
-              borderRadius: 3,
-              fontSize: 11,
-              fontWeight: 600,
+          {/* Title */}
+          <div>
+            <h3 style={{
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 800,
+              fontSize: 32,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+              color: "white",
+              margin: "0 0 10px",
+              textShadow: "0 2px 12px rgba(0,0,0,0.4)",
             }}>
-              {film.rating}
-            </span>
-            <span>·</span>
-            <span>{film.genre}</span>
-            <span>·</span>
-            <span>{film.year}</span>
-          </div>
-          <div style={{
-            fontSize: 14,
-            color: "rgba(255,255,255,0.75)",
-            lineHeight: "9px",
-            marginTop: "14px",
-          }}>
-            <div className="block">
-              <span>Starring {film.stars?.join(", ")}</span>
-            </div><br />
-            <div className="block">
-              <span>Directed by {film.director}</span>
+              {film.title}
+            </h3>
+
+            {/* Meta row */}
+            <div style={{
+              fontSize: 14,
+              color: "rgba(255,255,255,0.75)",
+              display: "flex",
+              gap: 6,
+              alignItems: "center",
+              flexWrap: "wrap",
+            }}>
+              <span style={{
+                border: "1px solid rgba(255,255,255,0.6)",
+                padding: "1px 5px",
+                borderRadius: 3,
+                fontSize: 11,
+                fontWeight: 600,
+              }}>
+                {film.rating}
+              </span>
+              <span>·</span>
+              <span>{film.genre}</span>
+              <span>·</span>
+              <span>{film.year}</span>
+            </div>
+            <div style={{
+              fontSize: 14,
+              color: "rgba(255,255,255,0.75)",
+              lineHeight: "10px",
+              marginTop: "14px",
+            }}>
+              <div className="block"style={{
+                lineHeight: "18px",
+              }}>
+                <span>Starring {film.stars?.join(", ")}</span>
+              </div><br />
+              <div className="block">
+                <span>Directed by {film.director}</span>
+              </div>
             </div>
           </div>
         </div>
+        <div className="card-play">
+          <svg width="14" height="16" viewBox="0 0 14 16"><path d="M0 0L14 8L0 16V0Z"/></svg>
+        </div>
       </div>
-      <div className="card-play">
-        <svg width="14" height="16" viewBox="0 0 14 16"><path d="M0 0L14 8L0 16V0Z"/></svg>
-      </div>
-    </div>
+    </ScrollReveal>
   );
 }
 
 function FilmsSection() {
   return (
-    <section id="films" style={{ padding: "120px 40px", background: "var(--bg)" }}>
+    <section id="films" style={{ background: "var(--bg)" }}
+    className="px-[24px]! md:px-[40px]! py-12! md:py-24!">
       <div style={{ margin: "0 auto" }}>
         <div style={{ marginBottom: 72 }}>
 
@@ -825,10 +832,9 @@ function AboutSection() {
                 maxWidth: 640,
             }}
           >
-            Born from{" "}
-            <span className="text-[var(--magenta)]">Passion</span>
-            ,<br />Built on{" "}
-            <span className="text-[var(--gold)]">Craft</span>.
+            Filmed with {" "}
+            <span className="text-[var(--magenta)]">Love</span>
+            .
             </h2>
           </ScrollReveal>
         </div>
@@ -836,7 +842,7 @@ function AboutSection() {
       <div style={{ margin: "0 auto", textAlign: "center", maxWidth: "1160px" }}>
         <div style={{margin: "30px auto", textAlign: "center"}}>
 
-          <ScrollReveal direction="left" style={{margin: "0 auto", textAlign: "center"}}>
+          <ScrollReveal direction="right" style={{margin: "0 auto", textAlign: "center"}}>
             <p
               className=""
               style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px", margin: "0 auto 20px", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, marginBottom: 20, transitionDelay: "0.1s" }}
@@ -849,7 +855,7 @@ function AboutSection() {
             </p>
             </ScrollReveal>
 
-            <ScrollReveal direction="right" style={{margin: "0 auto", textAlign: "center"}}>
+            <ScrollReveal direction="left" style={{margin: "0 auto", textAlign: "center"}}>
             <p
               className=""
               style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px",  margin: "0 auto", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, transitionDelay: "0.2s" }}
@@ -877,43 +883,118 @@ function AboutSection() {
         </div>
 
         {/* Right — team */}
-        <div id="team">
-          <div className="reveal from-right" style={{ marginBottom: 24 }}>
-            <span className="section-label">The Founders</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {[
-              { name: "Mark Holmes", role: "Producer & Co-Founder", desc: "The creative engine behind Daisy 3's production philosophy — championing stories that challenge and delight.", color: "var(--cyan)" },
-              { name: "James Vasquez", role: "Writer, Director & Co-Founder", desc: "The visionary storyteller whose personal voice defines the studio's comedic and deeply human aesthetic.", color: "var(--magenta)" },
-              { name: "Carrie Preston", role: "Actress, Director & Co-Founder", desc: "Multi-talented actress and director whose fearless performances and creative direction elevated every project.", color: "var(--gold)" },
-            ].map((person, i) => (
-              <div
+
+          <div id="team">
+            <div className="" style={{ marginBottom: 24 }}>
+              <span className="section-label">The Founders</span>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+              }}
+            >
+              {[
+                {
+                  name: "James Vasquez",
+                  role: "Writer, Director & Co-Founder",
+                  desc: "The heart of the studio's voice, shaping stories that are as funny as they are deeply felt.",
+                  img: "/james-vasquez.webp",
+                  color: "var(--magenta)",
+                  enter: "left"
+                },
+                {
+                  name: "Carrie Preston",
+                  role: "Actress, Director & Co-Founder",
+                  desc: "The studio's secret weapon on both sides of the camera, her presence transforms a scene, her direction transforms a film.",
+                  img: "/carrie-preston.webp",
+                  color: "var(--gold)",
+                  enter: "bottom"
+                },
+                {
+                  name: "Mark Holmes",
+                  role: "Producer, Cinematographer & Co-Founder",
+                  desc: "The visual architect behind every frame and the force that gives each film its distinctive look and feel.",
+                  img: "/mark-holmes.webp",
+                  color: "var(--cyan)",
+                  enter: "right"
+                },
+              ].map((person) => (
+
+                <ScrollReveal direction={person.enter}
                 key={person.name}
-                className={`team-card reveal ${i % 2 === 0 ? "from-right" : "from-left"}`}
-                style={{ transitionDelay: `${i * 0.12}s` }}
-              >
-                <div style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
-                  <div style={{
-                    width: 44, height: 44, borderRadius: "50%",
-                    background: `linear-gradient(135deg, ${person.color}40, ${person.color}15)`,
-                    border: `1.5px solid ${person.color}60`,
-                    flexShrink: 0,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontFamily: "'Outfit'", fontWeight: 700, fontSize: 16,
-                    color: person.color,
-                  }}>
-                    {person.name.split(" ").map(w => w[0]).join("")}
+                    style={{
+                      margin: "0 auto", textAlign: "center",
+                      padding: 28,
+                      boxSizing: "border-box",
+                    }} className="w-full md:w-[50%] lg:w-[33.333%]">
+                  <div
+                    className="founder-card"
+                  >
+                    <div
+                      style={{
+                        textAlign: "center",
+                        borderRadius: 12,
+                        border: "1px solid transparent",
+                        background: "transparent",
+                        padding: 26,
+                        transition: "border 0.25s ease, background 0.25s ease",
+                      }}
+                      className="founder-inner"
+                    >
+                      <img
+                        src={person.img}
+                        alt={person.name}
+                        style={{
+                          width: 120,
+                          height: 120,
+                          borderRadius: "50%",
+                          objectFit: "cover",
+                          margin: "0 auto 24px",
+                        }}
+                      />
+
+                      <div
+                        style={{
+                          fontFamily: "'Outfit'",
+                          fontWeight: 700,
+                          fontSize: 18,
+                          color: "white",
+                          marginBottom: 4,
+                        }}
+                      >
+                        {person.name}
+                      </div>
+
+                      <div
+                        style={{
+                          fontSize: 11,
+                          letterSpacing: "0.08em",
+                          textTransform: "uppercase",
+                          fontFamily: "'Outfit'",
+                          fontWeight: 600,
+                          color: person.color,
+                          marginBottom: 10,
+                        }}
+                      >
+                        {person.role}
+                      </div>
+
+                      <div
+                        style={{
+                          fontSize: 14,
+                          color: "rgba(255,255,255,0.55)",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {person.desc}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div style={{ fontFamily: "'Outfit'", fontWeight: 700, fontSize: 16, color: "white", marginBottom: 3 }}>{person.name}</div>
-                    <div style={{ fontSize: 11, color: person.color, letterSpacing: "0.06em", textTransform: "uppercase", fontFamily: "'Outfit'", fontWeight: 600, marginBottom: 8 }}>{person.role}</div>
-                    <div style={{ fontSize: 13.5, color: "rgba(255,255,255,0.55)", lineHeight: 1.55 }}>{person.desc}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                </ScrollReveal>
+              ))}
+            </div>
           </div>
-        </div>
       </div>
     </section>
   );
@@ -922,53 +1003,58 @@ function AboutSection() {
 /* ─── Contact / CTA ─── */
 function CTASection() {
   return (
-    <section id="contact" style={{ padding: "120px 40px", background: "var(--bg)", textAlign: "center", position: "relative", overflow: "hidden" }}>
-      <div className="orb" style={{ width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "rgba(255,215,0,0.04)" }} />
+    <section id="contact" style={{ padding: "20px 40px 120px", textAlign: "center", position: "relative", overflow: "hidden" }}>
+      {/* <div className="orb" style={{ width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "rgba(255,215,0,0.04)" }} /> */}
       <div style={{ position: "relative", zIndex: 1, maxWidth: 720, margin: "0 auto" }}>
-        <div className="reveal from-bottom" style={{ marginBottom: 20 }}>
+        {/* <div className="reveal from-bottom" style={{ marginBottom: 20 }}>
           <span className="pill"><span className="dot" style={{ background: "var(--gold)" }} />Let's Make Something</span>
-        </div>
-        <h2
-          className="reveal from-bottom"
-          style={{
-            fontFamily: "'Outfit', sans-serif",
-            fontWeight: 900,
-            fontSize: "clamp(38px, 6vw, 76px)",
-            letterSpacing: "-0.04em",
-            lineHeight: 0.95,
-            marginBottom: 24,
-          }}
-        >
-          Got a story<br />worth telling?
-        </h2>
-        <p
-          className="reveal from-bottom"
-          style={{ color: "rgba(255,255,255,0.6)", fontSize: 17, lineHeight: 1.6, maxWidth: 480, margin: "0 auto 40px", transitionDelay: "0.1s" }}
-        >
-          Daisy 3 Pictures is always looking for bold voices, brave projects, and partnerships
-          built on great storytelling.
-        </p>
-        <div className="reveal from-bottom" style={{ transitionDelay: "0.2s" }}>
-          <a
-            href="mailto:hello@daisy3pictures.com"
+        </div> */}
+
+        <ScrollReveal direction="bottom" style={{margin: "0 auto", textAlign: "center"}}>
+          <h2
+            className=""
             style={{
               fontFamily: "'Outfit', sans-serif",
-              fontWeight: 700, fontSize: 16,
-              padding: "17px 44px",
-              borderRadius: "100px",
-              background: "linear-gradient(135deg, var(--cyan), var(--magenta))",
-              color: "#000",
-              textDecoration: "none",
-              display: "inline-block",
-              letterSpacing: "0.02em",
-              transition: "transform 0.25s, box-shadow 0.25s",
+              fontWeight: 900,
+              fontSize: "clamp(38px, 6vw, 76px)",
+              letterSpacing: "-0.04em",
+              lineHeight: 0.95,
+              marginBottom: 24,
             }}
-            onMouseEnter={(e) => { e.target.style.transform = "scale(1.04)"; e.target.style.boxShadow = "0 0 60px rgba(0,240,255,0.2)"; }}
-            onMouseLeave={(e) => { e.target.style.transform = "scale(1)"; e.target.style.boxShadow = "none"; }}
           >
-            Get in Touch
-          </a>
-        </div>
+            Your Story<br />Starts Here.
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal direction="right" style={{margin: "0 auto", textAlign: "center"}}>
+          <p
+            className=""
+            style={{ color: "rgba(255,255,255,0.6)", fontSize: 17, lineHeight: 1.6, maxWidth: 480, margin: "0 auto 40px", transitionDelay: "0.1s" }}
+          >
+            We're always on the lookout for compelling voices and projects that push the boundaries of great storytelling.
+          </p>
+        </ScrollReveal>
+
+        <ScrollReveal direction="left" style={{margin: "0 auto", textAlign: "center"}}>
+          <div className="" style={{ transitionDelay: "0.2s" }}>
+            <a
+              href="mailto:hello@daisy3pictures.com"
+              style={{
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: 700, fontSize: 16,
+                padding: "17px 44px",
+                borderRadius: "100px",
+                background: "var(--gold)",
+                color: "#000",
+                textDecoration: "none",
+                display: "inline-block",
+                letterSpacing: "0.02em",
+                transition: "transform 0.25s, box-shadow 0.25s",
+              }}
+            >
+              Get in Touch
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );
@@ -983,9 +1069,9 @@ function Footer() {
           {/* Brand */}
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-              <div className="daisy-mark" style={{ width: 22, height: 22 }} />
-              <span style={{ fontFamily: "'Outfit'", fontWeight: 700, fontSize: 16, color: "white" }}>
-                Daisy <span className="grad-cyan-mag">3</span> Pictures
+              <div className="daisy-mark" style={{ width: 33, height: 33 }} />
+              <span style={{ fontFamily: "'Outfit'", fontWeight: 700, fontSize: 28, color: "white" }}>
+                <span style={{color: "var(--gold)"}}>Daisy 3</span> Pictures
               </span>
             </div>
             <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", lineHeight: 1.5, maxWidth: 240 }}>
