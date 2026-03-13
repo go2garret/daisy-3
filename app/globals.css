@@ -3,6 +3,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --bg: #000000;
+  --surface: #0A0A0A;
+  --surface-hover: #141414;
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.6);
+  --border: rgba(255,255,255,0.1);
+  --cyan: #00f0ff;
+  --magenta: #ff00aa;
+  --gold: #ffd700;
+  --cyan-rgb: 0,240,255;
+  --magenta-rgb: 255,0,170;
+  --gold-rgb: 255,215,0;
+  --off-white: #F5F0E8;
+
+  --shadow-alpha: 0.35;
+
+  /* large shadow stack */
+  --shadow-lg-a: 0 10px 50px -5px;
+  --shadow-lg-b: 0 8px 10px -6px;
 }
 
 @theme inline {
@@ -19,20 +39,35 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+/* ─── Hover Color utilities ───────────────────────── */
+
+.shadow-gold {
+  --shadow-color: var(--gold-rgb);
 }
 
-.nav-hamburger {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  color: #ffffff;
-  line-height: 0;
+.shadow-cyan {
+  --shadow-color: var(--cyan-rgb);
 }
+
+.shadow-magenta {
+  --shadow-color: var(--magenta-rgb);
+}
+
+/* ─── Button Hover Base hover behavior ───────────────────────── */
+
+.hover-shadow-lg {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.hover-shadow-lg:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    var(--shadow-lg-a) rgba(var(--shadow-color), var(--shadow-alpha)),
+    var(--shadow-lg-b) rgba(var(--shadow-color), var(--shadow-alpha));
+}
+
+/* ─── Transitions ─────────────────────────────────────────── */
 
 .fade-in {
     /* Apply the animation to the element */
@@ -50,6 +85,9 @@ body {
         opacity: 1; /* End fully opaque */
     }
 }
+
+
+/* ─── Transitions ─────────────────────────────────────────── */
 
 .founder-card:hover .founder-inner {
   border: 1px solid rgba(255,255,255,0.15) !important;

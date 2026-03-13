@@ -9,22 +9,6 @@ const FontLoader = () => (
   <style>{`
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
 
-    :root {
-      --bg: #000000;
-      --surface: #0A0A0A;
-      --surface-hover: #141414;
-      --text: #ffffff;
-      --text-muted: rgba(255,255,255,0.6);
-      --border: rgba(255,255,255,0.1);
-      --cyan: #00f0ff;
-      --magenta: #ff00aa;
-      --gold: #ffd700;
-      --cyan-rgb: 0,240,255;
-      --magenta-rgb: 255,0,170;
-      --gold-rgb: 255,215,0;
-      --off-white: #F5F0E8;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
@@ -325,6 +309,7 @@ function Nav() {
               letterSpacing: "0.01em",
               transition: "color 0.2s",
             }}
+            className="hover:text-white!"
           >
             {item}
           </a>
@@ -342,6 +327,7 @@ function Nav() {
             letterSpacing: "0.04em",
             transition: "opacity 0.2s, transform 0.2s",
           }}
+          className="hover-shadow-lg shadow-gold"
         >
           Watch Now
         </a>
@@ -453,6 +439,7 @@ function Hero() {
               transition: "transform 0.25s, box-shadow 0.25s",
               display: "inline-block",
             }}
+            className="hover-shadow-lg shadow-gold"
           >
             Explore Our Films
           </a>
@@ -504,13 +491,14 @@ function Hero() {
 
 /* ─── Marquee Banner ─── */
 function MarqueeBanner() {
-  const items = ["29th & Gay", "That's What She Said", "Ready? OK!", "Feet of Clay", "Award-Winning Cinema", "Independent Spirit", "San Diego, CA", "Since 2004"];
+  const items = ["29th & Gay", "That's What She Said", "Ready? OK!", "Feet of Clay", "Independent Spirit", "San Diego, CA", "Since 2004"];
   const doubled = [...items, ...items];
   return (
     <div style={{ overflow: "hidden", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", padding: "14px 0", background: "var(--surface)" }}>
       <div className="marquee-track">
         {doubled.map((item, i) => (
-          <span key={i} style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: 13, letterSpacing: "0.12em", textTransform: "uppercase", color: i % 2 === 0 ? "rgba(255,255,255,0.9)" : "var(--magenta)", whiteSpace: "nowrap", padding: "0 32px" }}>
+          <span key={i}
+          style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 600, fontSize: 13, letterSpacing: "0.12em", textTransform: "uppercase", color: i % 2 === 0 ? "rgba(255,255,255,0.9)" : "var(--magenta)", whiteSpace: "nowrap", padding: "0 32px", opacity: 0.85 }}>
             {item}{i % 2 === 0 ? "" : " ✦"}
           </span>
         ))}
@@ -887,7 +875,7 @@ function AboutSection() {
               style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px",  margin: "0 auto", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, transitionDelay: "0.2s" }}
             >
               Based in San Diego, California, the studio has spent two decades proving that
-              independent film can punch above its weight — with sharp writing, star performances,
+              independent film can punch above its weight - with sharp writing, star performances,
               and stories that endure.
             </p>
           </ScrollReveal>
@@ -911,9 +899,12 @@ function AboutSection() {
         {/* Right — team */}
 
           <div id="team">
-            <div className="" style={{ marginBottom: 24 }}>
-              <span className="section-label">The Founders</span>
-            </div>
+
+            <ScrollReveal direction="bottom">
+              <div className="" style={{ marginBottom: 24 }}>
+                <span className="section-label">The Founders</span>
+              </div>
+            </ScrollReveal>
             <div
               style={{
                 display: "flex",
@@ -1076,6 +1067,7 @@ function CTASection() {
                 letterSpacing: "0.02em",
                 transition: "transform 0.25s, box-shadow 0.25s",
               }}
+              className="hover-shadow-lg shadow-gold"
             >
               Get in Touch
             </a>
