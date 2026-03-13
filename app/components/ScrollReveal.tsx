@@ -14,7 +14,7 @@ function easeOutQuart(t: number) {
   return 1 - Math.pow(1 - t, 4);
 }
 
-type Direction = "left" | "right" | "bottom";
+export type Direction = "left" | "right" | "bottom";
 
 interface ScrollRevealProps {
   children: ReactNode;

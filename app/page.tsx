@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import ScrollReveal from "./components/ScrollReveal";
+import ScrollReveal, {Direction} from "./components/ScrollReveal";
 import { DraftModeProvider } from "next/dist/server/async-storage/draft-mode-provider";
 
 /* ─── Google Fonts ─── */
@@ -936,7 +936,7 @@ function AboutSection() {
                 },
               ].map((person) => (
 
-                <ScrollReveal direction={person.enter}
+                <ScrollReveal direction={person.enter as Direction}
                 key={person.name}
                     style={{
                       margin: "0 auto", textAlign: "center",
