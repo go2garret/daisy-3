@@ -594,7 +594,7 @@ function FilmCard({ film, index }: FilmCardProps) {
         {/* Background media */}
 
         <img
-          src={imgError && film.image}
+          src={film.image}
           alt={film.title}
           loading="lazy"
           onError={() => setImgError(true)}
