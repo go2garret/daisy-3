@@ -508,6 +508,21 @@ function MarqueeBanner() {
   );
 }
 
+type Film = {
+  title: string;
+  year: string;
+  rating: string;
+  runtime: string;
+  genre: string;
+  director: string;
+  stars: string[];
+  desc: string;
+  image: string;
+  movie: string;
+  accentColor: string;
+  fallbackImage: string;
+};
+
 /* ─── Films ─── */
 const FILMS = [
   {
@@ -522,7 +537,6 @@ const FILMS = [
     image: "https://cdn.theplaylist.net/wp-content/uploads/2012/01/15051056/000008.26639.twss_1sht_FINAL_27x40_LobbyPoster-header.jpg",
     movie: "thats-what-she-said-trailer-xxs.mp4",
     accentColor: "var(--magenta-rgb)",
-    reviewStar: "★★★★",
   },
   {
     title: "29th and Gay",
@@ -536,7 +550,6 @@ const FILMS = [
     image: "29th-and-gay-screen.webp",
     movie: "29th-and-gay-trailer-xxs.mp4",
     accentColor: "var(--cyan-rgb)",
-    reviewStar: "★★★½",
   },
   {
     title: "Ready? OK!",
@@ -550,12 +563,16 @@ const FILMS = [
     image: "ready-ok-screen-rev.webp",
     movie: "ready-ok-trailer-xxs.mp4",
     accentColor: "var(--gold-rgb)",
-    reviewStar: "★★★★",
     fallbackImage: "ready-ok-screen-rev.webp",
   },
 ];
 
-function FilmCard({ film, index }) {
+type FilmCardProps = {
+  film: Film;
+  index: number;
+};
+
+function FilmCard({ film, index }: FilmCardProps) {
   const [imgError, setImgError] = useState(false);
 
   return (
