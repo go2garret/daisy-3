@@ -25,6 +25,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.nav-hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #ffffff;
+  line-height: 0;
+}
+
 .fade-in {
     /* Apply the animation to the element */
     animation: fadeIn ease 5s;

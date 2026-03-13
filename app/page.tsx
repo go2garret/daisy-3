@@ -22,6 +22,7 @@ const FontLoader = () => (
       --cyan-rgb: 0,240,255;
       --magenta-rgb: 255,0,170;
       --gold-rgb: 255,215,0;
+      --off-white: #F5F0E8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -67,12 +68,11 @@ const FontLoader = () => (
     }
 
     /* Nav glass */
-    // .nav-glass {
-    //   backdrop-filter: blur(20px) saturate(180%);
-    //   -webkit-backdrop-filter: blur(20px) saturate(180%);
-    //   background: rgba(0,0,0,0.65);
-    //   border-bottom: 1px solid var(--border);
-    // }
+    .nav-glass.dark {
+      backdrop-filter: blur(28px) saturate(150%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(0,0,0,0.4);
+    }
 
     /* Film card */
     .film-card {
@@ -284,12 +284,13 @@ function Nav() {
 
   return (
     <nav
-      className="nav-glass"
+      className={`nav-glass${scrolled ? " dark" : ""}`}
       style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         transition: "padding 0.3s",
         padding: scrolled ? "14px 32px" : "22px 32px",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
+        display: "flex", alignItems: "center",
+        justifyContent: "space-between",
       }}
     >
       {/* Logo */}
@@ -300,8 +301,18 @@ function Nav() {
         </span>
       </a>
 
+
+      {/* mobile hamburger toggle (appears on small screens) */}
+      <button className="nav-hamburger block! lg:hidden!" id="navHamburger" aria-label="Open menu">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="1" x2="20" y2="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          <line x1="0" y1="7" x2="20" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+          <line x1="0" y1="13" x2="20" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        </svg>
+      </button>
+
       {/* Desktop links */}
-      <div style={{ display: "flex", gap: "36px", alignItems: "center" }}>
+      <div style={{ gap: "36px", alignItems: "center" }} className="hidden lg:flex">
         {["Films", "About", "Team", "Contact"].map((item) => (
           <a
             key={item}
