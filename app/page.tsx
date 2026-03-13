@@ -520,7 +520,6 @@ type Film = {
   image: string;
   movie: string;
   accentColor: string;
-  fallbackImage: string;
 };
 
 /* ─── Films ─── */
@@ -563,7 +562,6 @@ const FILMS = [
     image: "ready-ok-screen-rev.webp",
     movie: "ready-ok-trailer-xxs.mp4",
     accentColor: "var(--gold-rgb)",
-    fallbackImage: "ready-ok-screen-rev.webp",
   },
 ];
 
