@@ -95,7 +95,7 @@ export default function VideoModal() {
               style={{
                 position: "relative",
                 width: "100%",
-                aspectRatio: "16/7",
+                height: "300px",
                 background: "#000",
                 overflow: "hidden",
               }}
@@ -121,7 +121,7 @@ export default function VideoModal() {
                   position: "absolute",
                   inset: 0,
                   background:
-                    "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.4) 100%)",
+                    `linear-gradient(200deg, rgba(${film.accentColor},0) 0%, rgba(${film.accentColor},0) 40%, rgb(${film.accentColor}) 100%)`,
                 }}
               />
               {/* Title centered */}
@@ -133,7 +133,7 @@ export default function VideoModal() {
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "flex-end",
-                  padding: "2rem",
+                  padding: "clamp(1rem, 5vw, 2rem)",
                   textAlign: "center",
                   gap: "0.4rem",
                 }}
@@ -141,11 +141,11 @@ export default function VideoModal() {
 
                 <h2
                   style={{
-                    margin: "0 0 10px",
+                    margin: "clamp(3px, 0vw, 20px)",
                     fontSize: "clamp(1.6rem, 4vw, 2.6rem)",
                     color: "var(--off-white)",
                     letterSpacing: "-0.02em",
-                    lineHeight: 1.1,
+                    lineHeight: 1.2,
                     textShadow: "0 2px 20px rgba(0,0,0,0.8)",
                   }}
                 >

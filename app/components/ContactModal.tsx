@@ -13,7 +13,6 @@ export default function ContactModal() {
         zIndex: 9999,
         background: "rgba(0,0,0,0.85)",
         display: "flex",
-        alignItems: "center",
         justifyContent: "center",
         overflowY: "auto",
         padding: "2rem 1rem",
@@ -21,6 +20,7 @@ export default function ContactModal() {
         pointerEvents: isOpen ? "all" : "none",
         transition: "opacity 0.3s ease",
       }}
+      className="items-start lg:items-center"
     >
       <div
         onClick={(e) => e.stopPropagation()}

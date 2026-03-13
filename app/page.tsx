@@ -788,12 +788,11 @@ function FilmCard({ film }: FilmCardProps) {
           style={{
             position: "absolute",
             inset: 0,
-            background: `linear-gradient(
-              to right,
+            background: `linear-gradient(to right,
               rgba(${film.accentColor},1) 0%,
-              rgba(${film.accentColor},0.5) 5%,
-              rgba(${film.accentColor},0.4) 20%,
-              rgba(${film.accentColor},0.2) 30%,
+              rgba(${film.accentColor},0.5) 15%,
+              rgba(${film.accentColor},0.3) 20%,
+              rgba(${film.accentColor},0.1) 30%,
               transparent 85%
             )`,
             zIndex: 3,
@@ -924,7 +923,7 @@ function FilmsSection() {
               <span className="grad-gold">Human Truth.</span>
             </h2>
           </ScrollReveal>
-          <ScrollReveal direction="left">
+          <ScrollReveal direction="right">
             <p
               className=""
               style={{
@@ -993,7 +992,7 @@ function AboutSection() {
       <div style={{ margin: "0 auto", textAlign: "center", maxWidth: "1160px" }}>
         <div style={{margin: "30px auto", textAlign: "center"}}>
 
-          <ScrollReveal direction="right" style={{margin: "0 auto", textAlign: "center"}}>
+          <ScrollReveal direction="bottom" style={{margin: "0 auto", textAlign: "center"}}>
             <p
               className=""
               style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px", margin: "0 auto 20px", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, marginBottom: 20, transitionDelay: "0.1s" }}
@@ -1006,7 +1005,7 @@ function AboutSection() {
             </p>
             </ScrollReveal>
 
-            <ScrollReveal direction="left" style={{margin: "0 auto", textAlign: "center"}}>
+            <ScrollReveal direction="bottom" style={{margin: "0 auto", textAlign: "center"}}>
             <p
               className=""
               style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px",  margin: "0 auto", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, transitionDelay: "0.2s" }}
