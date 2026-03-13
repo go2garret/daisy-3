@@ -1,14 +1,24 @@
 @import "tailwindcss";
 
+@source "./app/**/*.{js,ts,jsx,tsx}";
+@source "./components/**/*.{js,ts,jsx,tsx}";
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 
+  --font-title: 'Outfit', sans-serif;
+
+  --border-gold: 1px solid var(--gold);
+  --border-cyan: 1px solid var(--cyan);
+  --border-magenta: 1px solid var(--magenta);
+
   --bg: #000000;
   --surface: #0A0A0A;
   --surface-hover: #141414;
+  --dark-gray: #373737;
   --text: #ffffff;
-  --text-muted: rgba(255,255,255,0.6);
+  --text-muted: rgba(255,255,255,0.55);
   --border: rgba(255,255,255,0.1);
   --cyan: #00f0ff;
   --magenta: #ff00aa;
@@ -39,6 +49,10 @@
   }
 }
 
+h2 {
+  font-family: var(--font-title);
+  font-weight: 800;
+}
 
 /* ─── Hover Color utilities ───────────────────────── */
 
@@ -98,4 +112,55 @@
   .founder-card {
     width: 100% !important;
   }
+}
+
+
+
+/* ─── Modals ─────────────────────────────────────────── */
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+    background: var(--black);
+    border-radius: 8px;
+    width: 100vw;
+    /* max-width: 500px; */
+    padding: 40px;
+    transition: transform .5s;
+    position: relative;
+    transform: translateY(40px);
+    height: calc(100vh - 50px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50px;
+}
+
+.modal-overlay.open .modal-content {
+  transform: translateY(0);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.98) translateY(8px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0);   }
 }

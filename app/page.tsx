@@ -2,7 +2,9 @@
 
 import { useState, useEffect, useRef } from "react";
 import ScrollReveal, {Direction} from "./components/ScrollReveal";
-import { DraftModeProvider } from "next/dist/server/async-storage/draft-mode-provider";
+import { ModalProvider, useModal } from "./components/ModalContext";
+import VideoModal from "./components/VideoModal";
+import ContactModal from "./components/ContactModal";
 
 /* ─── Google Fonts ─── */
 const FontLoader = () => (
@@ -258,7 +260,6 @@ function useReveal() {
 /* ─── Nav ─── */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -507,7 +508,7 @@ function MarqueeBanner() {
   );
 }
 
-type Film = {
+export interface Film {
   title: string;
   year: string;
   rating: string;
@@ -519,6 +520,7 @@ type Film = {
   image: string;
   movie: string;
   accentColor: string;
+  trailer: string;
 };
 
 /* ─── Films ─── */
@@ -535,6 +537,7 @@ const FILMS = [
     image: "https://cdn.theplaylist.net/wp-content/uploads/2012/01/15051056/000008.26639.twss_1sht_FINAL_27x40_LobbyPoster-header.jpg",
     movie: "thats-what-she-said-trailer-xxs.mp4",
     accentColor: "var(--magenta-rgb)",
+    trailer: "https://www.youtube.com/watch?v=RbQlfaO1rWM"
   },
   {
     title: "29th and Gay",
@@ -548,6 +551,7 @@ const FILMS = [
     image: "29th-and-gay-screen.webp",
     movie: "29th-and-gay-trailer-xxs.mp4",
     accentColor: "var(--cyan-rgb)",
+    trailer: "https://www.youtube.com/watch?v=ZD2GtUbhYSY"
   },
   {
     title: "Ready? OK!",
@@ -561,6 +565,7 @@ const FILMS = [
     image: "ready-ok-screen-rev.webp",
     movie: "ready-ok-trailer-xxs.mp4",
     accentColor: "var(--gold-rgb)",
+    trailer: "https://www.youtube.com/watch?v=lEzM2PpAPJo"
   },
 ];
 
@@ -569,8 +574,9 @@ type FilmCardProps = {
   index: number;
 };
 
-function FilmCard({ film, index }: FilmCardProps) {
+function FilmCard({ film }: FilmCardProps) {
   const [imgError, setImgError] = useState(false);
+  const { openVideoModal } = useModal();
 
   return (
 
@@ -587,8 +593,10 @@ function FilmCard({ film, index }: FilmCardProps) {
         style={{
           position: "relative",
           width: "100%",
-          height: "100%"
+          height: "100%",
+          cursor: "pointer",
         }}
+        onClick={() => openVideoModal(film)}
       >
         {/* Background media */}
 
@@ -1019,6 +1027,8 @@ function AboutSection() {
 
 /* ─── Contact / CTA ─── */
 function CTASection() {
+  const { openModal } = useModal();
+
   return (
     <section id="contact" style={{ padding: "20px 40px 120px", textAlign: "center", position: "relative", overflow: "hidden" }}>
       {/* <div className="orb" style={{ width: 600, height: 600, top: "50%", left: "50%", transform: "translate(-50%,-50%)", background: "rgba(255,215,0,0.04)" }} /> */}
@@ -1054,7 +1064,6 @@ function CTASection() {
         <ScrollReveal direction="left" style={{margin: "0 auto", textAlign: "center"}}>
           <div className="" style={{ transitionDelay: "0.2s" }}>
             <a
-              href="mailto:hello@daisy3pictures.com"
               style={{
                 fontFamily: "'Outfit', sans-serif",
                 fontWeight: 700, fontSize: 16,
@@ -1068,6 +1077,7 @@ function CTASection() {
                 transition: "transform 0.25s, box-shadow 0.25s",
               }}
               className="hover-shadow-lg shadow-gold"
+              onClick={() => openModal("contact")}
             >
               Get in Touch
             </a>
@@ -1128,7 +1138,7 @@ export default function App() {
   useReveal();
 
   return (
-    <>
+    <ModalProvider>
       <FontLoader />
       <Nav />
       <Hero />
@@ -1137,6 +1147,9 @@ export default function App() {
       <AboutSection />
       <CTASection />
       <Footer />
-    </>
+
+      <VideoModal />
+      <ContactModal />
+    </ModalProvider>
   );
 }
