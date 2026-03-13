@@ -257,9 +257,12 @@ function useReveal() {
   }, []);
 }
 
+
+
 /* ─── Nav ─── */
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -288,13 +291,37 @@ function Nav() {
 
 
       {/* mobile hamburger toggle (appears on small screens) */}
-      <button className="nav-hamburger block! lg:hidden!" id="navHamburger" aria-label="Open menu">
-        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <line x1="0" y1="1" x2="20" y2="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          <line x1="0" y1="7" x2="20" y2="7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-          <line x1="0" y1="13" x2="20" y2="13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        </svg>
+      <button
+        className="nav-hamburger block! lg:hidden! z-[500]"
+        aria-label={drawerOpen ? "Close menu" : "Open menu"}
+        onClick={() => setDrawerOpen(v => !v)}
+        style={{ position: "relative", width: 24, height: 24, background: "none", border: "none", cursor: "pointer", color: "white" }}
+      >
+        {/* Top line — rotates to become the first arm of ✕ */}
+        <span style={{
+          position: "absolute", left: 2, top: drawerOpen ? "50%" : 4,
+          width: 20, height: 1.4, background: "currentColor", borderRadius: 2,
+          transform: drawerOpen ? "translateY(-50%) rotate(45deg)" : "none",
+          transition: "top 0.25s 0.1s, transform 0.25s, opacity 0.2s",
+        }} />
+        {/* Middle line — fades out */}
+        <span style={{
+          position: "absolute", left: 2, top: "50%",
+          width: 20, height: 1.4, background: "currentColor", borderRadius: 2,
+          opacity: drawerOpen ? 0 : 1,
+          transition: "opacity 0.15s",
+        }} />
+        {/* Bottom line — rotates to become the second arm of ✕ */}
+        <span style={{
+          position: "absolute", left: 2, bottom: drawerOpen ? "50%" : 4,
+          width: 20, height: 1.4, background: "currentColor", borderRadius: 2,
+          transform: drawerOpen ? "translateY(50%) rotate(-45deg)" : "none",
+          transition: "bottom 0.25s 0.1s, transform 0.25s, opacity 0.2s",
+        }} />
       </button>
+
+      {/* Drawer */}
+      <MobileDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
 
       {/* Desktop links */}
       <div style={{ gap: "36px", alignItems: "center" }} className="hidden lg:flex">
@@ -334,6 +361,108 @@ function Nav() {
         </a>
       </div>
     </nav>
+  );
+}
+
+function MobileDrawer({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  // Lock body scroll when open
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
+  return (
+    <>
+      {/* Backdrop */}
+      <div
+        onClick={onClose}
+        style={{
+          position: "fixed", inset: 0, zIndex: 99,
+          background: "rgba(0,0,0,0.6)",
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? "auto" : "none",
+          transition: "opacity 0.3s",
+          backdropFilter: "blur(4px)",
+          height: "100dvh"
+        }}
+      />
+
+      {/* Panel — slides in from right */}
+      <div style={{
+        position: "fixed", top: 0, right: 0, bottom: 0, zIndex: 100,
+        width: "100%", maxWidth: 500,
+        background: "#0a0a0a",   // match your site's dark bg
+        borderLeft: "1px solid rgba(255,255,255,0.08)",
+        transform: isOpen ? "translateX(0)" : "translateX(100%)",
+        transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+        display: "flex", flexDirection: "column",
+        padding: "0 32px",
+        overflowY: "auto",
+        height: "100dvh"
+      }}>
+
+        {/* Header row — mirrors the nav layout */}
+        <div style={{
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          height: 72, flexShrink: 0,
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
+        }}>
+          <a href="#" onClick={onClose} style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
+            <div className="daisy-mark" />
+            <span style={{ fontFamily: "'Outfit', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: "-0.02em", color: "white" }}>
+              <span style={{ color: "var(--gold)" }}>Daisy 3</span> Pictures
+            </span>
+          </a>
+        </div>
+
+        {/* Nav links */}
+        <nav style={{ display: "flex", flexDirection: "column", gap: 4, paddingTop: 32 }}>
+          {["Films", "About", "Team", "Contact"].map((item, i) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              onClick={onClose}
+              style={{
+                fontWeight: 500,
+                fontSize: "clamp(16px, 5vw, 19px)",
+                color: "rgba(255,255,255,0.75)",
+                textDecoration: "none",
+                padding: "14px 20px",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                transition: "color 0.2s",
+                opacity: isOpen ? 1 : 0,
+                transform: isOpen ? "translateX(0)" : "translateX(24px)",
+                transitionDelay: isOpen ? `${0.15 + i * 0.06}s` : "0s",
+              }}
+              className="hover:bg-gray-50/10 rounded-xl"
+            >
+              {item}
+            </a>
+          ))}
+        </nav>
+
+        {/* CTA */}
+        <div style={{ paddingTop: 40 }}>
+          <a
+            href="#films"
+            onClick={onClose}
+            style={{
+              display: "block", textAlign: "center",
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 600, fontSize: 15,
+              padding: "14px 0", borderRadius: 100,
+              background: "var(--gold)", color: "#000",
+              textDecoration: "none", letterSpacing: "0.04em",
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen ? "translateY(0)" : "translateY(12px)",
+              transition: "opacity 0.3s, transform 0.3s",
+              transitionDelay: isOpen ? "0.38s" : "0s",
+            }}>
+            Watch Now
+          </a>
+        </div>
+      </div>
+    </>
   );
 }
 
