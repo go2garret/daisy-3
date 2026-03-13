@@ -802,52 +802,65 @@ function FilmsSection() {
 /* ─── About ─── */
 function AboutSection() {
   return (
-    <section id="about" style={{ padding: "120px 40px", background: "var(--surface)", position: "relative", overflow: "hidden" }}>
+    <section id="about" style={{ padding: "120px 40px", position: "relative", overflow: "hidden" }}>
       {/* BG accent */}
       <div className="orb" style={{ width: 400, height: 400, top: "-100px", right: "-100px", background: "rgba(255,0,170,0.05)" }} />
 
-      <div style={{ margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
-        {/* Left */}
-        <div>
-          <div className="reveal from-left" style={{ marginBottom: 16 }}>
-            <span className="section-label">Our Story</span>
-          </div>
-          <h2
+
+        <div style={{display: "flex", justifyContent: "center", margin: "0 auto"}}>
+          <ScrollReveal direction="bottom" style={{margin: "0 auto", textAlign: "center"}}>
+            <div className=""
+            style={{ marginBottom: 16 }}>
+              <span className="section-label">Our Story</span>
+            </div>
+            <h2
             className="reveal from-left"
             style={{
-              fontFamily: "'Outfit', sans-serif",
-              fontWeight: 900,
-              fontSize: "clamp(32px, 4vw, 54px)",
-              letterSpacing: "-0.03em",
-              lineHeight: 1.05,
-              marginBottom: 28,
+                fontFamily: "'Outfit', sans-serif",
+                fontWeight: 900,
+                fontSize: "clamp(38px, 6vw, 72px)",
+                letterSpacing: "-0.04em",
+                lineHeight: 1.0,
+                color: "white",
+                maxWidth: 640,
             }}
           >
             Born from{" "}
-            <span className="grad-cyan-mag">Passion</span>
+            <span className="text-[var(--magenta)]">Passion</span>
             ,<br />Built on{" "}
-            <span className="grad-cyan-mag">Craft</span>.
-          </h2>
-          <p
-            className="reveal from-left"
-            style={{ fontFamily: "'Plus Jakarta Sans'", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, marginBottom: 20, transitionDelay: "0.1s" }}
-          >
-            Founded in 2004 by producer <strong style={{ color: "white" }}>Mark Holmes</strong>,
-            writer-director <strong style={{ color: "white" }}>James Vasquez</strong>, and
-            actress <strong style={{ color: "white" }}>Carrie Preston</strong>, Daisy 3 Pictures
-            emerged from a shared belief: that the most compelling stories live at the intersection
-            of comedy and real human longing.
-          </p>
-          <p
-            className="reveal from-left"
-            style={{ fontFamily: "'Plus Jakarta Sans'", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, transitionDelay: "0.2s" }}
-          >
-            Based in San Diego, California, the studio has spent two decades proving that
-            independent film can punch above its weight — with sharp writing, star performances,
-            and stories that endure.
-          </p>
+            <span className="text-[var(--gold)]">Craft</span>.
+            </h2>
+          </ScrollReveal>
+        </div>
 
-          <div className="reveal from-bottom" style={{ marginTop: 40, display: "flex", gap: 16, transitionDelay: "0.3s" }}>
+      <div style={{ margin: "0 auto", textAlign: "center", maxWidth: "1160px" }}>
+        <div style={{margin: "30px auto", textAlign: "center"}}>
+
+          <ScrollReveal direction="left" style={{margin: "0 auto", textAlign: "center"}}>
+            <p
+              className=""
+              style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px", margin: "0 auto 20px", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, marginBottom: 20, transitionDelay: "0.1s" }}
+            >
+              Founded in 2004 by producer <strong style={{ color: "white" }}>Mark Holmes</strong>,
+              writer-director <strong style={{ color: "white" }}>James Vasquez</strong>, and
+              actress <strong style={{ color: "white" }}>Carrie Preston</strong>, Daisy 3 Pictures
+              emerged from a shared belief: that the most compelling stories live at the intersection
+              of comedy and real human longing.
+            </p>
+            </ScrollReveal>
+
+            <ScrollReveal direction="right" style={{margin: "0 auto", textAlign: "center"}}>
+            <p
+              className=""
+              style={{ fontFamily: "'Plus Jakarta Sans'", maxWidth: "840px",  margin: "0 auto", fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, transitionDelay: "0.2s" }}
+            >
+              Based in San Diego, California, the studio has spent two decades proving that
+              independent film can punch above its weight — with sharp writing, star performances,
+              and stories that endure.
+            </p>
+          </ScrollReveal>
+
+          {/* <div className="" style={{ marginTop: 40, display: "flex", gap: 16, transitionDelay: "0.3s" }}>
             <div style={{ padding: "18px 24px", background: "rgba(0,240,255,0.06)", border: "1px solid rgba(0,240,255,0.15)", borderRadius: 14 }}>
               <div style={{ fontFamily: "'Outfit'", fontWeight: 800, fontSize: 28, color: "var(--cyan)" }}>2004</div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginTop: 4 }}>Studio Founded</div>
@@ -860,7 +873,7 @@ function AboutSection() {
               <div style={{ fontFamily: "'Outfit'", fontWeight: 800, fontSize: 28, color: "var(--gold)" }}>SDQ</div>
               <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginTop: 4 }}>San Diego, CA</div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Right — team */}
