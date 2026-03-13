@@ -920,10 +920,10 @@ function FilmsSection() {
             >
               Heart. Humor.
               <br />
-              <span className="grad-gold">Human Truth.</span>
+              <span style={{color: "var(--gold)"}}>Human Truth.</span>
             </h2>
           </ScrollReveal>
-          <ScrollReveal direction="right">
+          <ScrollReveal direction="left">
             <p
               className=""
               style={{
@@ -1270,10 +1270,10 @@ export default function App() {
       <FontLoader />
       <Nav />
       <Hero />
+      <MarqueeBanner />
       <FilmsSection />
       <AboutSection />
       <CTASection />
-      <MarqueeBanner />
       <Footer />
 
       <VideoModal />
