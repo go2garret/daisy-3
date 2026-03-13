@@ -24,3 +24,20 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.fade-in {
+    /* Apply the animation to the element */
+    animation: fadeIn ease 5s;
+    /* Ensure the final state of the animation (opacity: 1) persists after it finishes */
+    animation-fill-mode: forwards;
+}
+
+/* Define the keyframes for the animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0; /* Start completely transparent */
+    }
+    100% {
+        opacity: 1; /* End fully opaque */
+    }
+}

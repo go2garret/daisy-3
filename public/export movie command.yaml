@@ -1,0 +1,27 @@
+/g/Downloads/ffmpeg-master-latest-win64-gpl-shared/ffmpeg-master-latest-win64-gpl-shared/bin/ffmpeg.exe \
+  -ss 27 \
+  -i /d/code/daisy3/public/thats-what-she-said-trailer.mp4 \
+  -to 60 \
+  -vf "scale=400:-2,fps=21" \
+  -an \
+  -c:v libx265 \
+  -crf 28 \
+  -preset slow \
+  -tag:v hvc1 \
+  -maxrate 800K -bufsize 1.6M \
+  -movflags +faststart \
+  /d/code/daisy3/public/thats-what-she-said-trailer-xxs.mp4
+
+  /g/Downloads/ffmpeg-master-latest-win64-gpl-shared/ffmpeg-master-latest-win64-gpl-shared/bin/ffmpeg.exe \
+  -ss 37 \
+  -i /d/code/daisy3/public/ready-ok-trailer.mp4 \
+  -to 60 \
+  -vf "scale=800:-2,fps=21,fade=t=in:st=0:d=1,fade=t=out:st=59:d=1" \
+  -an \
+  -c:v libx265 \
+  -crf 28 \
+  -preset slow \
+  -tag:v hvc1 \
+  -maxrate 800K -bufsize 1.6M \
+  -movflags +faststart \
+  /d/code/daisy3/public/ready-ok-trailer-xs.mp4
