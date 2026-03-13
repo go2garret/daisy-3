@@ -709,7 +709,7 @@ function FilmCard({ film }: FilmCardProps) {
 
   return (
 
-    <ScrollReveal direction="bottom"
+    <div
         className="film-card sm:min-w-[400px]"
         style={{
           position: "relative",
@@ -890,7 +890,7 @@ function FilmCard({ film }: FilmCardProps) {
           <svg width="14" height="16" viewBox="0 0 14 16"><path d="M0 0L14 8L0 16V0Z"/></svg>
         </div>
       </div>
-    </ScrollReveal>
+    </div>
   );
 }
 
